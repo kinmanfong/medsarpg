@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 11: expected statement.
+    stage = "start"
+          ^
+
+Ren'Py Version: Ren'Py 8.2.1.24030407
+Tue Oct 22 19:37:38 2024
