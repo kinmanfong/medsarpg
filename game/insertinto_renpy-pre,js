@@ -1,0 +1,48 @@
+//sends the post
+var POSTsent = false
+var POSTInfo = {}
+
+function SendRequest() {
+	//get the variable
+	renpy_get("fullName").then(function(value){
+		POSTInfo['fullName'] = value
+		renpy_get("ic").then(function(value){
+			POSTInfo['ic'] = value
+			renpy_get("email").then(function(value){
+				POSTInfo['email'] = value
+				//send the post
+				$.ajax({
+					url: 'https://script.google.com/macros/s/AKfycbz-vUWqFm4n5SFNLz1azZp7S1iaYG-EGEOToP6cvSlQVizbGn4ZfvJjDZdlducxU20/exec',
+					type: 'post',
+					data: {
+						"Name": POSTInfo['fullName'],
+						"IC": POSTInfo['ic'],
+						"email": POSTInfo['email'],
+						"honeypot": '',
+					},
+					success:function(response){
+						POSTInfo = {}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						POSTsent = false
+					  }
+				});
+			
+			})
+		})
+	})
+
+}
+
+//check if time to send
+setInterval(function () {
+	renpy_get("stage").then(function(value){
+		stage = value
+	})
+	if (stage == 'finished' && POSTInfo != {} && POSTsent == false) {
+		POSTsent = true
+		SendRequest()
+	} else if (stage != 'finished') {
+		POSTsent = false
+	}
+}, 1000);

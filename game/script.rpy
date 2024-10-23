@@ -911,7 +911,11 @@ label start:
                 with dissolve
                 e "Just to confirm your details: [fullName], [ic], [email]. Correct?"
                 "Yes":
-                     jump done6 
+                    python:
+                        stage = "finished"
+
+                    jump done6
+                     
                      
                 "No":
                     jump menu6
@@ -920,8 +924,6 @@ label start:
 
     e "Remember, you still can access any parts of this module again with the {b}Load{/b} option {i}(If you have Saved before){/i}."
     e "I thank you for your time, [name] and see you again!"
-
-    define stage = "finished"
 
     # This ends the game.
 
